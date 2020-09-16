@@ -97,9 +97,9 @@ class Structured_Data {
       $request_title = $query_args[ count( $query_args ) - 1 ];
     }
   
-    $structured_data = json_decode( get_option( 'structured_data' ) );
+    $structured_data = json_decode( get_option( 'structured_data' ), true );
     
-    echo '<script type="application/ld+json">' . json_encode( $structured_data->$request_title, JSON_UNESCAPED_SLASHES ) . '</script>';
+    echo '<script type="application/ld+json">' . json_encode( $structured_data[$request_title], JSON_UNESCAPED_SLASHES ) . '</script>';
   }
 }
 
