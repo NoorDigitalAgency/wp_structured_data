@@ -11,11 +11,15 @@ if ( defined( ABSPATH ) ) exit;
 
 class Structured_Data {
 
-  private $prefix;
+  private $plugin_plugin_prefix;
+
+  private $plugin_name;
 
   public function __construct() {
     
-    $this->prefix = 'structured_data';
+    $this->plugin_prefix = 'structured_data';
+
+    $this->plugin_name = 'Structured Data';
 
     add_action( 'admin_enqueue_scripts', [$this, 'enqueue_assets']);
     
@@ -39,7 +43,7 @@ class Structured_Data {
 
   public function inline_assets() {
 
-    if ( isset( $_GET['page'] )  && $_GET['page'] === $this->prefix ) {
+    if ( isset( $_GET['page'] )  && $_GET['page'] === $this->plugin_prefix ) {
 
       echo '<script>jQuery(document).ready(function($) {
         wp.codeEditor.initialize($("#structured_data"), cm_settings);
@@ -54,18 +58,17 @@ class Structured_Data {
 
   public function register_settings() {
 
-    register_setting( $this->prefix . '_group', $this->prefix );
+    register_setting( $this->plugin_prefix . '_group', $this->plugin_prefix );
   }
 
   public function add_options_page() {
 
     add_options_page( 
-      'Structured data', 
-      'Structured data', 
+      $this->plugin_name, 
+      $this->plugin_name, 
       'manage_options', 
-      $this->prefix, 
-      [$this, $this->prefix . '_options_page'], 
-      null 
+      $this->plugin_prefix, 
+      [$this, $this->plugin_prefix . '_options_page']
     );
   }
 
@@ -73,9 +76,9 @@ class Structured_Data {
 
     echo '<div class="wrap">';
     echo '<form method="post" action="options.php">';
-    echo '<h1>Structured data</h1>';
+    echo '<h1>' . $this->plugin_name . '</h1>';
           settings_fields( 'structured_data_group' );
-    echo '<textarea id="structured_data" name="structured_data">' . esc_textarea( get_option( 'structured_data' ) ) . '</textarea>';
+    echo '<textarea id="' . $this->plugin_prefix . '" name="' . $this->plugin_prefix . '">' . esc_textarea( get_option( $this->plugin_prefix ) ) . '</textarea>';
   
           submit_button();
     echo '</form>';
@@ -86,20 +89,25 @@ class Structured_Data {
 
     global $wp;
   
-    $request_uri = home_url( add_query_arg( [], $wp->request ) );
-  
     $requset_slug = add_query_arg( [], $wp->request );
+    
+    $request_uri = home_url( $request_slug );
   
     $query_args = explode( '/', $requset_slug );
   
     if ( is_array( $query_args ) ) {
   
       $request_title = $query_args[ count( $query_args ) - 1 ];
+      
+      $structured_data = json_decode( get_option( $this->plugin_prefix ), true );
+
+      $structured_data_json = json_encode( $structured_data[$request_title], JSON_UNESCAPED_SLASHES );
+
+      if ( $structured_data_json != NULL ) {
+
+        echo '<script type="application/ld+json">' . $structured_data_json . '</script>';
+      }
     }
-  
-    $structured_data = json_decode( get_option( 'structured_data' ), true );
-    
-    echo '<script type="application/ld+json">' . json_encode( $structured_data[$request_title], JSON_UNESCAPED_SLASHES ) . '</script>';
   }
 }
 
