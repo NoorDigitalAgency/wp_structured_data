@@ -4,11 +4,11 @@
 
 1. Download sourcecode as ZIP from repository
 2. Go to WP admin -> plugins and click "add plugin"
-3. Upload ZIP file and press "Install"
+3. Upload ZIP file and click "Install"
 4. Wait for the installer to extract and install code
 5. Click activate. Then the plugin will be available in settings menu as Structured Data
 
-### Install using composer as WP Must use plugin
+### Install using composer as WP Must Use Plugin
 
 1. Documentation will be updated....
 
