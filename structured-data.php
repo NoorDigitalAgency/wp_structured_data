@@ -75,6 +75,7 @@ class Structured_Data {
   public function structured_data_options_page () {
 
     echo '<div class="wrap">';
+    echo '<div class="update-nag">If Structured data targets the frontpage and no page or slug is available, just put <strong>"home"</strong> as page property.</div>';
     echo '<form method="post" action="options.php">';
     echo '<h1>' . $this->plugin_name . '</h1>';
           settings_fields( 'structured_data_group' );
@@ -97,15 +98,20 @@ class Structured_Data {
   
     if ( is_array( $query_args ) ) {
   
-      $request_title = $query_args[ count( $query_args ) - 1 ];
-      
       $structured_data = json_decode( get_option( $this->plugin_prefix ), true );
+      
+      if ( $structured_data != null ) {
 
-      $structured_data_json = json_encode( $structured_data[$request_title], JSON_UNESCAPED_SLASHES );
+        $request_title = $query_args[ count( $query_args ) - 1 ];
+        
+        $structured_data_json = empty( $request_title ) && is_front_page()
+          ? json_encode( $structured_data['home'], JSON_UNESCAPED_SLASHES )
+          : json_encode( $structured_data[$request_title], JSON_UNESCAPED_SLASHES );
 
-      if ( $structured_data_json != NULL ) {
+        if ( $structured_data_json != null ) {
 
-        echo '<script type="application/ld+json">' . $structured_data_json . '</script>';
+          echo '<script type="application/ld+json">' . $structured_data_json . '</script>';
+        }
       }
     }
   }
