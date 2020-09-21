@@ -75,9 +75,10 @@ class Structured_Data {
   public function structured_data_options_page () {
 
     echo '<div class="wrap">';
-    echo '<div class="update-nag">If Structured data targets the frontpage and no page or slug is available, just put <strong>"home"</strong> as page property.</div>';
     echo '<form method="post" action="options.php">';
     echo '<h1>' . $this->plugin_name . '</h1>';
+
+    echo '<div class="update-nag notice notice-warning">If Structured data targets the frontpage and no page or slug is available, just put <strong>"home"</strong> as page property.</div>';
           settings_fields( 'structured_data_group' );
     echo '<textarea id="' . $this->plugin_prefix . '" name="' . $this->plugin_prefix . '">' . esc_textarea( get_option( $this->plugin_prefix ) ) . '</textarea>';
   
