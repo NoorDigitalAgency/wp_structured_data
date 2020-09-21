@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Structured Data
  * Description: Inserts structured data to page head
- * Version: 1.0.3
+ * Version: 1.0.4
  * Author: Noor Digital Agency
  * Author URI: https://noordigital.com
  */
@@ -106,13 +106,13 @@ class Structured_Data {
         $request_title = $query_args[ count( $query_args ) - 1 ];
         
         $structured_data_json = empty( $request_title ) && is_front_page()
-          ? json_encode( $structured_data['home'], JSON_UNESCAPED_SLASHES )
-          : json_encode( $structured_data[$request_title], JSON_UNESCAPED_SLASHES );
+          ? $structured_data['home']
+          : $structured_data[$request_title];
 
-        if ( $structured_data_json != null && ! empty( $structured_data_json ) && $structured_data_json != 'null' ) {
+        if ( $structured_data_json != null && ! empty( $structured_data_json ) ) {
 
           echo '<!--- Insert by Noor Structured Data --->';
-          echo '<script type="application/ld+json">' . $structured_data_json . '</script>';
+          echo '<script type="application/ld+json">' . json_encode( $structured_data_json, JSON_UNESCAPED_SLASHES ) . '</script>';
         }
       }
     }
