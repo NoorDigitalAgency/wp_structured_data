@@ -2,12 +2,28 @@
 /**
  * Plugin Name: Structured Data
  * Description: Inserts structured data to page head
- * Version: 1.0.4
+ * Version: 1.0.5
  * Author: Noor Digital Agency
  * Author URI: https://noordigital.com
  */
 
 if ( defined( ABSPATH ) ) exit;
+
+// Require composer autoloader
+require plugin_dir_path( __FILE__ ) . 'vendor/autoload.php';
+
+/**
+ * Plugin updater to push updates from github to wp admin interface
+ */
+$plugin_updater = Puc_v4_Factory::buildUpdateChecker(
+	'https://github.com/NoorDigitalAgency/wp_structured_data',
+	__FILE__,
+	'noor/structured-data'
+);
+
+$plugin_updater->setBranch( 'master' );
+
+$plugin_updater->setAuthentication('2cd2abd4fbe38f95fd69a7d32a04be5450747266');
 
 class Structured_Data {
 
@@ -93,7 +109,7 @@ class Structured_Data {
   
     $requset_slug = add_query_arg( [], $wp->request );
     
-    $request_uri = home_url( $request_slug );
+    $request_uri = home_url( $requset_slug );
   
     $query_args = explode( '/', $requset_slug );
   
