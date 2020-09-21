@@ -8,11 +8,6 @@
 4. Wait for the installer to extract and install code
 5. Click Activate Plugin. Then the plugin will be available in settings menu as Structured Data
 
-### Install using composer as WP Must Use Plugin
-
-1. Make sure to follow the [Guide](https://github.com/NoorDigitalAgency/Guides/blob/master/composer_package.md) to be able to require private repository.
-2. A mu-plugin can't be stored in a subdirectory of the mu-plugins folder by default. So if you're planing on using package/repo as must-use-plugin the Noor/Plugin_Autoloader is required as a mu-plugin first. link to autoloader comming soon..
-
 ### Use plugin.
 
 example object to add in admin menu -> settings -> Structured Data
