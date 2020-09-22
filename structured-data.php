@@ -24,7 +24,7 @@ $plugin_updater = Puc_v4_Factory::buildUpdateChecker(
 // Stable branch master
 // $plugin_updater->setBranch( 'master' );
 
-$myUpdateChecker->getVcsApi()->enableReleaseAssets();
+$plugin_updater->getVcsApi()->enableReleaseAssets();
 
 /**
  * Structured data
