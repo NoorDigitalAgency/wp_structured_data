@@ -1,6 +1,7 @@
 {
   "name": "noor/structured-data",
   "type": "wordpress-plugin",
+  "homepage": "https://github.com/NoorDigitalAgency/wp_structured_data",
   "license": "MIT",
   "description": "Inserts structured data to page head",
   "authors": [
