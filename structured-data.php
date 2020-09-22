@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Structured Data
  * Description: Inserts structured data to page head
- * Version: 1.0.5
+ * Version: 1.1.0
  * Author: Noor Digital Agency
  * Author URI: https://noordigital.com
  */
@@ -21,13 +21,20 @@ $plugin_updater = Puc_v4_Factory::buildUpdateChecker(
 	'noor/structured-data'
 );
 
-$plugin_updater->setBranch( 'master' );
+// Stable branch master
+// $plugin_updater->setBranch( 'master' );
 
-$plugin_updater->setAuthentication('2cd2abd4fbe38f95fd69a7d32a04be5450747266');
+$myUpdateChecker->getVcsApi()->enableReleaseAssets();
 
+/**
+ * Structured data
+ * 
+ * @param plugin_prefix string
+ * @param plugin_name string
+ */
 class Structured_Data {
 
-  private $plugin_plugin_prefix;
+  private $plugin_prefix;
 
   private $plugin_name;
 

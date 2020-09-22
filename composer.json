@@ -1,6 +1,6 @@
 {
   "name": "noor/structured-data",
-  "type": "wordpress-muplugin",
+  "type": "wordpress-plugin",
   "license": "MIT",
   "description": "Inserts structured data to page head",
   "authors": [
@@ -11,7 +11,7 @@
     }
   ],
   "keywords": [
-    "structured", "data", "head", "mu-plugin", "must-use", "plugin", "wordpress"
+    "structured", "data", "head", "plugin", "wordpress"
   ],
   "require": {
     "php": ">=7.1",
