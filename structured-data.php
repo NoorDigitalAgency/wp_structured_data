@@ -12,13 +12,14 @@ if ( defined( ABSPATH ) ) exit;
 // Require composer autoloader
 require plugin_dir_path( __FILE__ ) . 'vendor/autoload.php';
 
+$package = json_decode( file_get_contents( __DIR__ . '/composer.json' ), false );
 /**
  * Plugin updater to push updates from github to wp admin interface
  */
 $plugin_updater = Puc_v4_Factory::buildUpdateChecker(
-	'https://github.com/NoorDigitalAgency/wp_structured_data',
+	$package->homepage,
 	__FILE__,
-	'noor/structured-data'
+	$package->name
 );
 
 // Stable branch master
