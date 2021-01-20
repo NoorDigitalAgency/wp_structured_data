@@ -6,5 +6,5 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'Noor\\Structured_Data\\' => array('/'),
+    'Noor\\StructuredData\\' => array($baseDir . '/Includes'),
 );

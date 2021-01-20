@@ -12,9 +12,14 @@
 
 example object to add in admin menu -> settings -> Structured Data
 
+1. Pages can be targeted by an absolute url, relative url or wordpress post/page slug
+2. First page in object below uses full url to target and insert structured data
+3. Second page in object below uses relative url to target and insert structured data
+4. First page in object below uses the slug to target and insert structured data
+
 ```
 {
-  "page-name/page-slug": {
+  "http://example.com/example-page": {
     "@context": "https://schema.org",
     "@type": "FAQPage",
     "mainEntity": [
@@ -44,7 +49,11 @@ example object to add in admin menu -> settings -> Structured Data
       }
     ]
   },
-  "page-name/page-slug": {
+  "example-page/example-nested-page": {
+    "@context": "https://schema.org",
+    ...
+  },
+  "example-page-slug": {
     "@context": "https://schema.org",
     ...
   }

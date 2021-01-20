@@ -6,7 +6,7 @@
   "description": "Inserts structured data to page head",
   "authors": [
     {
-      "name": "Christoffer Öhman",
+      "name": "Noor Digital Agency",
       "email": "christoffer.ohman@noor.se",
       "homepage": "https://noordigital.com"
     }
@@ -20,7 +20,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Noor\\Structured_Data\\": "/"
+      "Noor\\StructuredData\\": "Includes/"
     }
   }
 }
