@@ -55,9 +55,9 @@ git tag v$VERSION
 echo
 echo "Pushing latest commit to origin with tags"
 
-git push origin main
+git push origin master
 
-git push origin main --tags
+git push origin master --tags
 
 
 echo
