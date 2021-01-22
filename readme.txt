@@ -1,10 +1,10 @@
 === Datafeedr Template ===
 Contributors:
 Tags:              structured, data
-Requires at least: 5.3.2
-Tested up to:      5.5.0
-Stable tag:        1.1.4
-Requires PHP:      7.0.0
+Requires at least: 3.0.0
+Tested up to:      5.6.0
+Stable tag:        1.1.5
+Requires PHP:      5.3.0
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -29,5 +29,8 @@ This plugin inserts Structured data to wp_head
 
 = 1.1.4 =
 * Added abillity to target pages by absolute url, relative url or slug.
+
+= 1.1.5 =
+* patch on min required wp core/php and tested wp core v
 
 == Arbitrary section ==
