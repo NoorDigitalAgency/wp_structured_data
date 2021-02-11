@@ -14,22 +14,22 @@ class StructuredData {
 
     $this->plugin_name = 'Structured Data';
 
-    add_action( 'admin_enqueue_scripts', [$this, 'enqueue_assets']);
+    add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_assets' ) );
     
-    add_action( 'admin_init', [$this, 'register_settings']);
+    add_action( 'admin_init', array( $this, 'register_settings' ) );
     
-    add_action( 'admin_menu', [$this, 'add_options_page']);
+    add_action( 'admin_menu', array( $this, 'add_options_page' ) );
 
-    add_action( 'admin_head', [$this, 'inline_assets']);
+    add_action( 'admin_head', array( $this, 'inline_assets' ) );
 
-    add_action( 'wp_head', [$this, 'print_structured_data']);
+    add_action( 'wp_head', array( $this, 'print_structured_data' ) );
   }
 
   public function enqueue_assets( $hook ) {
 
-    wp_localize_script( 'jquery', 'cm_settings', wp_enqueue_code_editor([
+    wp_localize_script( 'jquery', 'cm_settings', wp_enqueue_code_editor(array(
       'type' => 'application/ld+json'
-    ]));
+    )));
 
     wp_enqueue_style( 'wp-codemirror' );
   }
