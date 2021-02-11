@@ -61,7 +61,7 @@ class StructuredData {
       $this->plugin_name, 
       'manage_options', 
       $this->plugin_prefix, 
-      [$this, $this->plugin_prefix . '_options_page']
+      array( $this, $this->plugin_prefix . '_options_page' )
     );
   }
 
