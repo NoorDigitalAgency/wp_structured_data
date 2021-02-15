@@ -22,7 +22,7 @@ class StructuredData {
 
     add_action( 'admin_head', array( $this, 'inline_assets' ) );
 
-    add_action( 'wp_head', array( $this, 'print_structured_data' ), 90, 1 );
+    add_action( 'wp_print_scripts', array( $this, 'print_structured_data' ), 90, 1 );
   }
 
   public function enqueue_assets( $hook ) {

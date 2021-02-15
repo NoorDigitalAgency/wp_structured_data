@@ -3,7 +3,7 @@ Contributors:
 Tags:              structured, data
 Requires at least: 3.0.0
 Tested up to:      5.6.0
-Stable tag:        1.1.93
+Stable tag:        1.2.0
 Requires PHP:      5.3.0
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -47,5 +47,8 @@ This plugin inserts Structured data to wp_head
 
 = 1.1.93 =
 * patch updated. Array check on dataloader
+
+= 1.2.0 =
+Make use of wp_print_scripts instead of prev wp_head hook.
 
 == Arbitrary section ==
