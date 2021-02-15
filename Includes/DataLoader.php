@@ -36,7 +36,7 @@ class DataLoader {
 
       if ( is_array( $value ) ) {
 
-        $value = end( $value );
+        $value = $value[count($value) - 1];
       }
 
       $variables[] = $value;

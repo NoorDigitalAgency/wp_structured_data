@@ -3,7 +3,7 @@ Contributors:
 Tags:              structured, data
 Requires at least: 3.0.0
 Tested up to:      5.6.0
-Stable tag:        1.1.91
+Stable tag:        1.1.92
 Requires PHP:      5.3.0
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -42,7 +42,7 @@ This plugin inserts Structured data to wp_head
 = 1.1.9 =
 * patch updated. Priority on wp_head to inject structured data
 
-= 1.1.91 =
+= 1.1.92 =
 * patch updated. Array selector causing some errors. replaced reset() select first by $array[0] selector
 
 == Arbitrary section ==
