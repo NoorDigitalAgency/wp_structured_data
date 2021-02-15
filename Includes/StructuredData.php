@@ -97,7 +97,7 @@ class StructuredData {
     if ( $data != null ) {
 
       echo '<!--- Insert by Noor Structured Data --->';
-      echo '<script type="application/ld+json">' . json_encode( $data, JSON_UNESCAPED_SLASHES ) . '</script>';
+      echo '<script type="application/ld+json">' . json_encode( $data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . '</script>';
       return;
     }
 
@@ -105,7 +105,7 @@ class StructuredData {
     if ( ( is_home() || is_front_page() ) && isset( $structured_data['home'] ) ) {
   
       echo '<!--- Insert by Noor Structured Data --->';
-      echo '<script type="application/ld+json">' . json_encode( $structured_data['home'], JSON_UNESCAPED_SLASHES ) . '</script>';
+      echo '<script type="application/ld+json">' . json_encode( $structured_data['home'], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES ) . '</script>';
       return;
     }
   }
