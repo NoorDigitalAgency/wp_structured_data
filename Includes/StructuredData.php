@@ -97,7 +97,7 @@ class StructuredData {
     if ( is_array( $data ) && ! empty( $data ) ) {
 
       echo '<!--- Insert by Noor Structured Data --->';
-      echo '<script type="application/ld+json">' . json_encode( reset( $data ), JSON_UNESCAPED_SLASHES ) . '</script>';
+      echo '<script type="application/ld+json">' . json_encode( $data[0], JSON_UNESCAPED_SLASHES ) . '</script>';
       return;
     }
 

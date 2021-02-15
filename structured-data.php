@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Structured Data
  * Description: Inserts structured data to page head
- * Version: 1.1.9
+ * Version: 1.1.91
  * Author: Noor Digital Agency
  * Author URI: https://noordigital.com
  */
