@@ -94,10 +94,10 @@ class StructuredData {
     $loader = new DataLoader( $wp->request );
     $data = $loader->getData( $structured_data );
 
-    if ( is_array( $data ) && ! empty( $data ) ) {
+    if ( $data != null ) {
 
       echo '<!--- Insert by Noor Structured Data --->';
-      echo '<script type="application/ld+json">' . json_encode( $data[0], JSON_UNESCAPED_SLASHES ) . '</script>';
+      echo '<script type="application/ld+json">' . json_encode( $data, JSON_UNESCAPED_SLASHES ) . '</script>';
       return;
     }
 

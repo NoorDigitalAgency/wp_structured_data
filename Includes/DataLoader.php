@@ -48,9 +48,14 @@ class DataLoader {
 
   public function getData ( array $structured_data ) {
 
-    return array_filter( $structured_data, function( $key ) {
-
+    $data =  array_filter( $structured_data, function( $key ) {
+      
       return in_array( $key, $this->variables );
     }, ARRAY_FILTER_USE_KEY );
+
+    if ( count( $data ) >= 1 ) {
+
+      return end( array_values( $data ) );
+    }
   }
 }
