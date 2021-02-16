@@ -1,12 +1,14 @@
 <?php
 
-namespace Noor\StructuredData;
+namespace WPPlugin\StructuredData;
 
 class StructuredData {
 
   private $plugin_prefix;
 
   private $plugin_name;
+
+  private $data;
 
   public function __construct() {
     
@@ -22,7 +24,25 @@ class StructuredData {
 
     add_action( 'admin_head', array( $this, 'inline_assets' ) );
 
-    add_action( 'wp_print_scripts', array( $this, 'print_structured_data' ), 90, 1 );
+    if ( class_exists( 'Yoast\WP\SEO\Generators\Schema\FAQ' ) ) {
+
+      add_filter( 'wpseo_schema_graph_pieces', array( $this, 'add_faq_graph' ), 11, 2 );
+    } else {
+
+      add_action( 'wp_print_scripts', array( $this, 'print_structured_data' ), 90, 1 );
+    }
+  }
+
+  private function getOption ( $decode = false ) {
+
+    if ( $this->data === null ) $this->data = get_option( $this->plugin_prefix );
+    
+    if ( ! $decode ) {
+
+      return $this->data;
+    }
+
+    return json_decode( $this->data, true );
   }
 
   public function enqueue_assets( $hook ) {
@@ -80,13 +100,28 @@ class StructuredData {
     echo '</div>';
   }
 
+  /**
+   * Adds Schema pieces to our output.
+   *
+   * @param array                 $pieces  Graph pieces to output.
+   * @param \WPSEO_Schema_Context $context Object with context variables.
+   *
+   * @return array Graph pieces to output.
+   */
+  public function add_faq_graph ( $pieces, $contect ) {
+    
+    global $wp;
+
+    $pieces[] = new FaqGraph( $context, new DataLoader( $wp->request ), $this->getOption( true ) );
+
+    return $pieces;
+  }
+
   public function print_structured_data() {
 
     global $wp;
     
-    $structured_data = json_decode( get_option( $this->plugin_prefix ), true );
-
-    if ( ! is_array( $structured_data ) ) {
+    if ( ! $structured_data = $this->getOption( true ) ) {
 
       return;
     }
@@ -97,7 +132,7 @@ class StructuredData {
     if ( $data != null ) {
 
       echo '<!--- Insert by Noor Structured Data --->';
-      echo '<script type="application/ld+json">' . json_encode( $data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . '</script>';
+      echo '<script type="application/ld+json">' . json_encode( $data, JSON_UNESCAPED_SLASHES) . '</script>';
       return;
     }
 
@@ -105,7 +140,7 @@ class StructuredData {
     if ( ( is_home() || is_front_page() ) && isset( $structured_data['home'] ) ) {
   
       echo '<!--- Insert by Noor Structured Data --->';
-      echo '<script type="application/ld+json">' . json_encode( $structured_data['home'], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES ) . '</script>';
+      echo '<script type="application/ld+json">' . json_encode( $structured_data['home'], JSON_UNESCAPED_SLASHES ) . '</script>';
       return;
     }
   }

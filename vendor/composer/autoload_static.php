@@ -11,14 +11,14 @@ class ComposerStaticInit62a46fabe0d574133c1502733e59ac8b
     );
 
     public static $prefixLengthsPsr4 = array (
-        'N' => 
+        'W' => 
         array (
-            'Noor\\StructuredData\\' => 20,
+            'WPPlugin\\StructuredData\\' => 24,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'Noor\\StructuredData\\' => 
+        'WPPlugin\\StructuredData\\' => 
         array (
             0 => __DIR__ . '/../..' . '/Includes',
         ),

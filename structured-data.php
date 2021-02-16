@@ -22,4 +22,4 @@ $plugin_updater = \Puc_v4_Factory::buildUpdateChecker( $package->homepage, __FIL
   
 $plugin_updater->getVcsApi()->enableReleaseAssets();
 
-new Noor\StructuredData\StructuredData();
+new WPPlugin\StructuredData\StructuredData();

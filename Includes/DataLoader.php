@@ -1,6 +1,6 @@
 <?php
 
-namespace Noor\StructuredData;
+namespace WPPlugin\StructuredData;
 
 class DataLoader {
 
