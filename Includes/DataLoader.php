@@ -14,7 +14,13 @@ class DataLoader {
 
   public function __construct ( $request ) {
 
-    $this->abspath = rtrim( home_url( $request ), '/' );
+    if ( is_multisite() ) {
+
+      $this->abspath = rtrim( network_home_url( $request ), '/' );
+    } else {
+
+      $this->abspath = rtrim( home_url( $request ), '/' );
+    }
 
     $this->relpath = rtrim( $request, '/' );
 

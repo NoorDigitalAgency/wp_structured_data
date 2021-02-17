@@ -33,9 +33,14 @@ class StructuredData {
     }
   }
 
-  private function getOption ( $decode = false ) {
+  private function getJson ( $decode = false ) {
 
-    if ( $this->data === null ) $this->data = get_option( $this->plugin_prefix );
+    if ( $this->data === null ) {
+
+      $this->data = ( is_multisite() 
+        ? get_site_option( $this->plugin_prefix )
+        : get_option( $this->plugin_prefix ) );
+    }
     
     if ( ! $decode ) {
 
@@ -112,7 +117,7 @@ class StructuredData {
     
     global $wp;
 
-    $pieces[] = new FaqGraph( $context, new DataLoader( $wp->request ), $this->getOption( true ) );
+    $pieces[] = new FaqGraph( $context, new DataLoader( $wp->request ), $this->getJson( true ) );
 
     return $pieces;
   }
@@ -121,7 +126,7 @@ class StructuredData {
 
     global $wp;
     
-    if ( ! $structured_data = $this->getOption( true ) ) {
+    if ( ! $structured_data = $this->getJson( true ) ) {
 
       return;
     }
