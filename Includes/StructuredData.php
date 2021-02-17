@@ -35,12 +35,7 @@ class StructuredData {
 
   private function getJson ( $decode = false ) {
 
-    if ( $this->data === null ) {
-
-      $this->data = ( is_multisite() 
-        ? get_site_option( $this->plugin_prefix )
-        : get_option( $this->plugin_prefix ) );
-    }
+    if ( $this->data === null ) $this->data = get_option( $this->plugin_prefix );
     
     if ( ! $decode ) {
 
