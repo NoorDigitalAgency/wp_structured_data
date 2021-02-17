@@ -3,7 +3,7 @@ Contributors:
 Tags:              structured, data
 Requires at least: 3.0.0
 Tested up to:      5.6.0
-Stable tag:        1.2.1
+Stable tag:        1.3.0
 Requires PHP:      5.3.0
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -53,5 +53,8 @@ Make use of wp_print_scripts instead of prev wp_head hook.
 
 = 1.2.1 =
 * Patch: Uses foreach instead of array_filter and utf for json_encode.
+
+= 1.3.0 =
+* Integration to yoast structured data for FAQPages.
 
 == Arbitrary section ==
