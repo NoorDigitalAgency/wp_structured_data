@@ -24,13 +24,13 @@ class StructuredData {
 
     add_action( 'admin_head', array( $this, 'inline_assets' ) );
 
-    if ( class_exists( 'Yoast\WP\SEO\Generators\Schema\FAQ' ) ) {
+    // To integrate with WP-Seo we need further investigation...
+    // if ( class_exists( 'Yoast\WP\SEO\Generators\Schema\FAQ' ) ) {
 
-      add_filter( 'wpseo_schema_graph_pieces', array( $this, 'add_faq_graph' ), 11, 2 );
-    } else {
+    //   add_filter( 'wpseo_schema_graph_pieces', array( $this, 'add_faq_graph' ), 11, 2 );
+    // } 
 
-      add_action( 'wp_print_scripts', array( $this, 'print_structured_data' ), 90, 1 );
-    }
+    add_action( 'wp_print_scripts', array( $this, 'print_structured_data' ), 90, 1 );
   }
 
   private function getJson ( $decode = false ) {
