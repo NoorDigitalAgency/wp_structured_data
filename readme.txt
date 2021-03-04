@@ -3,7 +3,7 @@ Contributors:
 Tags:              structured, data
 Requires at least: 3.0.0
 Tested up to:      5.6.0
-Stable tag:        1.3.2
+Stable tag:        1.3.3
 Requires PHP:      5.3.0
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -60,7 +60,7 @@ Make use of wp_print_scripts instead of prev wp_head hook.
 = 1.3.1 =
 * Patch: gen autoload.
 
-= 1.3.2 =
-* Patch: Multisite support.
+= 1.3.3 =
+* Patch: Pending wp-seo support. rollback.
 
 == Arbitrary section ==
