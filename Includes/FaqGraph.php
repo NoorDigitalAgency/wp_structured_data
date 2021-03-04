@@ -56,7 +56,9 @@ class FaqGraph extends FAQ {
 
 		$number_of_items = 0;
 
-    foreach( $this->data->getData( $this->json )['mainEntity'] as $index => $block ) {
+		$mainEntity = $this->data->getData( $this->json )['mainEntity'];
+
+    foreach( $mainEntity as $index => $block ) {
       
       $question = [
         'id'           => $index,
@@ -74,6 +76,7 @@ class FaqGraph extends FAQ {
 		$extra_graph_entries = [
 			'@type'            => 'ItemList',
 			'mainEntityOfPage' => [ '@id' => $this->context->main_schema_id ],
+			'mainEntity'			 => $mainEntity,
 			'numberOfItems'    => $number_of_items,
 			'itemListElement'  => $ids,
 		];
