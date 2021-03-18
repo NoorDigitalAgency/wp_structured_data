@@ -24,12 +24,6 @@ class StructuredData {
 
     add_action( 'admin_head', array( $this, 'inline_assets' ) );
 
-    if ( is_multisite() ) {
-
-      add_action( 'network_admin_edit_' . $this->plugin_prefix, array( $this, 'save_data' ) );
-
-      add_action( 'network_admin_notices', array( $this, 'admin_notice' ) );
-    }
     // To integrate with WP-Seo we need further investigation...
     // if ( class_exists( 'Yoast\WP\SEO\Generators\Schema\FAQ' ) ) {
 
@@ -94,66 +88,25 @@ class StructuredData {
 
   public function structured_data_options_page () {
 
-    $action = ( is_multisite() 
-      ? esc_url( add_query_arg( 
-        'action', 
-        $this->plugin_prefix, 
-        admin_url( 'admin.php?page=' . $this->plugin_prefix ) 
-      ))
-      : 'options.php' );
+    if ( is_multisite() ) {
+
+      switch_to_blog( get_current_blog_id() );
+    }
 
     echo '<div class="wrap">';
     echo '<h1>' . $this->plugin_name . '</h1>';
-    echo '<form method="post" action="' . $action . '">';
+    echo '<form method="post" action="options.php">';
     
-    if ( is_multisite() ) {
-
-      wp_nonce_field( 'structured-data-validate' );
-
-      if ( ! get_site_option( $this->plugin_prefix ) ) {
-
-        add_blog_option( get_current_blog_id(), $this->plugin_prefix );
-      }
-
-      $data = get_site_option( $this->plugin_prefix ) ;
-    } else {
-
-      settings_fields( 'structured_data_group' );
-      $data = get_option( $this->plugin_prefix );
-    }
-
-    echo '<textarea id="' . $this->plugin_prefix . '" name="' . $this->plugin_prefix . '">' . esc_textarea( $data ) . '</textarea>';
+    settings_fields( 'structured_data_group' );
+    echo '<textarea id="' . $this->plugin_prefix . '" name="' . $this->plugin_prefix . '">' . esc_textarea( get_option( $this->plugin_prefix ) ) . '</textarea>';
   
           submit_button();
     echo '</form>';
     echo '</div>';
-  }
 
-  /**
-   * If multisite save options manualy
-   */
-  public function save_data () {
+    if ( is_multisite() ) {
 
-    check_admin_referer( 'structured-data-validate' );
-
-    update_site_option( $this->plugin_prefix, $_POST[$this->plugin_prefix] );
-
-    wp_redirect( add_query_arg(array(
-      'page' => $this->plugin_prefix,
-      'updated' => true
-    ), network_admin_url( $this->plugin_prefix ) ) );
-
-    exit;
-  }
-
-  /**
-   * If multisite add admin notice on update success
-   */
-  public function admin_notice () {
-
-    if ( isset( $_GET['page'] ) && $_GET['page'] == $this->plugin_prefix && isset( $_GET['updated'] ) ) {
-
-      echo '<div id="message" class="updated notice is-dismissible"><p>Data updated.</p><button type="button" class="notice-dismiss"><span class="screen-reader-text">Dismiss this notice.</span></button></div>';
+      restore_current_blog();
     }
   }
 
@@ -178,6 +131,11 @@ class StructuredData {
 
     global $wp;
     
+    if ( is_multisite() ) {
+
+      switch_to_blog( get_current_blog_id() );
+    }
+
     if ( ! $structured_data = $this->getJson( true ) ) {
 
       return;
@@ -190,6 +148,11 @@ class StructuredData {
 
       echo '<!--- Insert by Noor Structured Data --->';
       echo '<script type="application/ld+json">' . json_encode( $data, JSON_UNESCAPED_SLASHES) . '</script>';
+
+      if ( is_multisite() ) {
+
+        restore_current_blog();
+      }
       return;
     }
 
@@ -198,7 +161,17 @@ class StructuredData {
   
       echo '<!--- Insert by Noor Structured Data --->';
       echo '<script type="application/ld+json">' . json_encode( $structured_data['home'], JSON_UNESCAPED_SLASHES ) . '</script>';
+      
+      if ( is_multisite() ) {
+
+        restore_current_blog();
+      }
       return;
+    }
+
+    if ( is_multisite() ) {
+
+      restore_current_blog();
     }
   }
 }
