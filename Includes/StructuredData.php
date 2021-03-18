@@ -16,13 +16,13 @@ class StructuredData {
 
     $this->plugin_name = 'Structured Data';
 
-    add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_assets' ) );
+    \add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_assets' ) );
     
-    add_action( 'admin_init', array( $this, 'register_settings' ) );
+    \add_action( 'admin_init', array( $this, 'register_settings' ) );
     
-    add_action( 'admin_menu', array( $this, 'add_admin_page' ) );
+    \add_action( 'admin_menu', array( $this, 'add_admin_page' ) );
 
-    add_action( 'admin_head', array( $this, 'inline_assets' ) );
+    \add_action( 'admin_head', array( $this, 'inline_assets' ) );
 
     // To integrate with WP-Seo we need further investigation...
     // if ( class_exists( 'Yoast\WP\SEO\Generators\Schema\FAQ' ) ) {
@@ -30,13 +30,23 @@ class StructuredData {
     //   add_filter( 'wpseo_schema_graph_pieces', array( $this, 'add_faq_graph' ), 11, 2 );
     // } 
 
-    add_action( 'wp_print_scripts', array( $this, 'print_structured_data' ), 90, 1 );
+    \add_action( 'wp_print_scripts', array( $this, 'print_structured_data' ), 90, 1 );
   }
 
   private function getJson ( $decode = false ) {
 
+    if ( \is_multisite() ) {
+
+      \switch_to_blog( \get_current_blog_id() );
+    }
+
     if ( $this->data === null ) $this->data = get_option( $this->plugin_prefix );
     
+    if ( \is_multisite() ) {
+
+      \restore_current_blog();
+    }
+
     if ( ! $decode ) {
 
       return $this->data;
@@ -130,11 +140,6 @@ class StructuredData {
   public function print_structured_data() {
 
     global $wp;
-    
-    if ( is_multisite() ) {
-
-      switch_to_blog( get_current_blog_id() );
-    }
 
     if ( ! $structured_data = $this->getJson( true ) ) {
 
@@ -149,10 +154,6 @@ class StructuredData {
       echo '<!--- Insert by Noor Structured Data --->';
       echo '<script type="application/ld+json">' . json_encode( $data, JSON_UNESCAPED_SLASHES) . '</script>';
 
-      if ( is_multisite() ) {
-
-        restore_current_blog();
-      }
       return;
     }
 
@@ -162,16 +163,7 @@ class StructuredData {
       echo '<!--- Insert by Noor Structured Data --->';
       echo '<script type="application/ld+json">' . json_encode( $structured_data['home'], JSON_UNESCAPED_SLASHES ) . '</script>';
       
-      if ( is_multisite() ) {
-
-        restore_current_blog();
-      }
       return;
-    }
-
-    if ( is_multisite() ) {
-
-      restore_current_blog();
     }
   }
 }
