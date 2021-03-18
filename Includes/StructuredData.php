@@ -98,7 +98,7 @@ class StructuredData {
       ? esc_url( add_query_arg( 
         'action', 
         $this->plugin_prefix, 
-        network_admin_url( 'page.php' ) 
+        admin_url( 'page.php' ) 
       ))
       : 'options.php' );
 
