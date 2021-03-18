@@ -152,9 +152,15 @@ class StructuredData {
     $data = $loader->getData( $structured_data );
 
     if ( isset( $_GET['debug'] ) && $_GET['debug'] ) {
+      $phpv = phpversion();
 
-      var_dump('<pre>', json_encode( $data, JSON_UNESCAPED_SLASHES), '</pre>');
-      // var_dump('<pre>', $data, '</pre>');
+      var_dump('<pre>', $phpv, '</pre>');
+
+      var_dump('<pre>', function_exists( 'json_decode' ), '</pre>');
+
+      var_dump('<pre>', 5.2 >= absint( $phpv ), '</pre>');
+
+      var_dump('<pre>', \json_encode( $data, JSON_FORCE_OBJECT ), '</pre>');
     }
 
     if ( $data != null ) {
