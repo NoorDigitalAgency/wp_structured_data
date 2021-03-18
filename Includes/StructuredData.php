@@ -151,6 +151,12 @@ class StructuredData {
     $loader = new DataLoader( $wp->request );
     $data = $loader->getData( $structured_data );
 
+    if ( isset( $_GET['debug'] ) && $_GET['debug'] ) {
+
+      var_dump('<pre>', $structured_data, '</pre>');
+      var_dump('<pre>', $data, '</pre>');
+    }
+
     if ( $data != null ) {
 
       echo '<!--- Insert by Noor Structured Data --->';
