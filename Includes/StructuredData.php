@@ -54,16 +54,16 @@ class StructuredData {
       return $this->data;
     }
 
-    return json_decode( $this->data, true );
+    return \json_decode( $this->data, true );
   }
 
   public function enqueue_assets( $hook ) {
 
-    wp_localize_script( 'jquery', 'cm_settings', wp_enqueue_code_editor(array(
+    \wp_localize_script( 'jquery', 'cm_settings', wp_enqueue_code_editor(array(
       'type' => 'application/ld+json'
     )));
 
-    wp_enqueue_style( 'wp-codemirror' );
+    \wp_enqueue_style( 'wp-codemirror' );
   }
 
   public function inline_assets() {
@@ -83,12 +83,12 @@ class StructuredData {
 
   public function register_settings() {
 
-    register_setting( $this->plugin_prefix . '_group', $this->plugin_prefix );
+    \register_setting( $this->plugin_prefix . '_group', $this->plugin_prefix );
   }
 
   public function add_admin_page() {
 
-    add_menu_page( 
+    \add_menu_page( 
       $this->plugin_name, 
       $this->plugin_name, 
       'read', 
@@ -100,25 +100,25 @@ class StructuredData {
 
   public function structured_data_options_page () {
 
-    if ( is_multisite() ) {
+    if ( \is_multisite() ) {
 
-      switch_to_blog( get_current_blog_id() );
+      \switch_to_blog( \get_current_blog_id() );
     }
 
     echo '<div class="wrap">';
     echo '<h1>' . $this->plugin_name . '</h1>';
     echo '<form method="post" action="options.php">';
     
-    settings_fields( 'structured_data_group' );
+    \settings_fields( 'structured_data_group' );
     echo '<textarea id="' . $this->plugin_prefix . '" name="' . $this->plugin_prefix . '">' . esc_textarea( get_option( $this->plugin_prefix ) ) . '</textarea>';
   
-          submit_button();
+          \submit_button();
     echo '</form>';
     echo '</div>';
 
-    if ( is_multisite() ) {
+    if ( \is_multisite() ) {
 
-      restore_current_blog();
+      \restore_current_blog();
     }
   }
 
@@ -150,13 +150,6 @@ class StructuredData {
 
     $loader = new DataLoader( $wp->request );
     $data = $loader->getData( $structured_data );
-
-    if ( isset( $_GET['debug'] ) && $_GET['debug'] ) {
-
-      var_dump('<pre>', \json_encode( $data ), '</pre>');
-
-      
-    }
 
     if ( $data != null ) {
 
