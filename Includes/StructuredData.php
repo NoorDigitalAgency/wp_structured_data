@@ -24,6 +24,12 @@ class StructuredData {
 
     add_action( 'admin_head', array( $this, 'inline_assets' ) );
 
+    if ( is_multisite() ) {
+
+      add_action( 'network_admin_edit_' . $this->plugin_prefix, array( $this, 'save_data' ) );
+
+      add_action( 'network_admin_notices', array( $this, 'admin_notice' ) );
+    }
     // To integrate with WP-Seo we need further investigation...
     // if ( class_exists( 'Yoast\WP\SEO\Generators\Schema\FAQ' ) ) {
 
@@ -88,17 +94,63 @@ class StructuredData {
 
   public function structured_data_options_page () {
 
-    echo '<div class="wrap">';
-    echo '<form method="post" action="options.php">';
-    echo '<h1>' . $this->plugin_name . '</h1>';
+    $action = ( is_multisite() 
+      ? 'edit.php?action=' . $this->plugin_prefix
+      : 'options.php' );
 
-    // echo '<div class="update-nag notice notice-warning">If Structured data targets the frontpage and no page or slug is available, just put <strong>"home"</strong> as page property.</div>';
-          settings_fields( 'structured_data_group' );
-    echo '<textarea id="' . $this->plugin_prefix . '" name="' . $this->plugin_prefix . '">' . esc_textarea( get_option( $this->plugin_prefix ) ) . '</textarea>';
+    echo '<div class="wrap">';
+    echo '<h1>' . $this->plugin_name . '</h1>';
+    echo '<form method="post" action="' . $action . '">';
+    
+    if ( is_multisite() ) {
+
+      echo wp_nonce_field( 'structured-data-validate' );
+
+      if ( ! get_site_option( $this->plugin_prefix ) ) {
+
+        add_site_option( $this->plugin_prefix );
+      }
+
+      $data = get_site_option( $this->plugin_prefix ) ;
+    } else {
+
+      settings_fields( 'structured_data_group' );
+      $data = get_option( $this->plugin_prefix );
+    }
+
+    echo '<textarea id="' . $this->plugin_prefix . '" name="' . $this->plugin_prefix . '">' . esc_textarea( $data ) . '</textarea>';
   
           submit_button();
     echo '</form>';
     echo '</div>';
+  }
+
+  /**
+   * If multisite save options manualy
+   */
+  public function save_data () {
+
+    check_admin_referer( 'structured-data-validate' );
+
+    update_site_option( $this->plugin_prefix, $_POST[$this->plugin_prefix] );
+
+    wp_redirect( add_query_arg(array(
+      'page' => $this->plugin_prefix,
+      'updated' => true
+    ), network_admin_url( $this->plugin_prefix ) ) );
+
+    exit;
+  }
+
+  /**
+   * If multisite add admin notice on update success
+   */
+  public function admin_notice () {
+
+    if ( isset( $_GET['page'] ) && $_GET['page'] == $this->plugin_prefix && isset( $_GET['updated'] ) ) {
+
+      echo '<div id="message" class="updated notice is-dismissible"><p>Data updated.</p><button type="button" class="notice-dismiss"><span class="screen-reader-text">Dismiss this notice.</span></button></div>';
+    }
   }
 
   /**
