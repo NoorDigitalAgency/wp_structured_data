@@ -153,8 +153,8 @@ class StructuredData {
 
     if ( isset( $_GET['debug'] ) && $_GET['debug'] ) {
 
-      var_dump('<pre>', $structured_data, '</pre>');
-      var_dump('<pre>', $data, '</pre>');
+      var_dump('<pre>', json_encode( $data, JSON_UNESCAPED_SLASHES), '</pre>');
+      // var_dump('<pre>', $data, '</pre>');
     }
 
     if ( $data != null ) {
