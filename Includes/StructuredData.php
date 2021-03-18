@@ -79,7 +79,7 @@ class StructuredData {
     add_menu_page( 
       $this->plugin_name, 
       $this->plugin_name, 
-      'edit_posts', 
+      'read', 
       $this->plugin_prefix, 
       array( $this, $this->plugin_prefix . '_options_page' ),
       'dashicons-index-card'
