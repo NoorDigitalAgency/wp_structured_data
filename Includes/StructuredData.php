@@ -95,7 +95,11 @@ class StructuredData {
   public function structured_data_options_page () {
 
     $action = ( is_multisite() 
-      ? 'edit.php?action=' . $this->plugin_prefix
+      ? esc_url( add_query_arg( 
+        'action', 
+        $this->plugin_prefix, 
+        network_admin_url( 'edit.php' ) 
+      ))
       : 'options.php' );
 
     echo '<div class="wrap">';
