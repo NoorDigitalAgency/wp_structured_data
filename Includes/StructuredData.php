@@ -98,7 +98,7 @@ class StructuredData {
       ? esc_url( add_query_arg( 
         'action', 
         $this->plugin_prefix, 
-        network_admin_url( 'edit.php' ) 
+        network_admin_url( 'page.php' ) 
       ))
       : 'options.php' );
 
@@ -134,7 +134,7 @@ class StructuredData {
    */
   public function save_data () {
 
-    check_admin_referer( 'structured-data-validate-options' );
+    check_admin_referer( 'structured-data-validate' );
 
     update_site_option( $this->plugin_prefix, $_POST[$this->plugin_prefix] );
 
