@@ -104,7 +104,7 @@ class StructuredData {
     
     if ( is_multisite() ) {
 
-      echo wp_nonce_field( 'structured-data-validate' );
+      wp_nonce_field( 'structured-data-validate' );
 
       if ( ! get_site_option( $this->plugin_prefix ) ) {
 
