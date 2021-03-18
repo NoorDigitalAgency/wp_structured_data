@@ -38,14 +38,16 @@ class StructuredData {
     if ( \is_multisite() ) {
 
       \switch_to_blog( \get_current_blog_id() );
-    }
 
-    if ( $this->data === null ) $this->data = get_option( $this->plugin_prefix );
-    
-    if ( \is_multisite() ) {
+      $option = \get_option( $this->plugin_prefix );
 
       \restore_current_blog();
+    } else {
+
+      $option = \get_option( $this->plugin_prefix );
     }
+
+    if ( $this->data === null ) $this->data = $option;
 
     if ( ! $decode ) {
 
