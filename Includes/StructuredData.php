@@ -108,7 +108,7 @@ class StructuredData {
 
       if ( ! get_site_option( $this->plugin_prefix ) ) {
 
-        add_site_option( $this->plugin_prefix );
+        add_blog_option( get_current_blog_id(), $this->plugin_prefix );
       }
 
       $data = get_site_option( $this->plugin_prefix ) ;
