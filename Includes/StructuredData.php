@@ -104,7 +104,7 @@ class StructuredData {
     
     if ( is_multisite() ) {
 
-      // wp_nonce_field( 'structured-data-validate' );
+      wp_nonce_field( 'structured-data-validate' );
 
       if ( ! get_site_option( $this->plugin_prefix ) ) {
 
@@ -130,7 +130,7 @@ class StructuredData {
    */
   public function save_data () {
 
-    // check_admin_referer( 'structured-data-validate' );
+    check_admin_referer( 'structured-data-validate-options' );
 
     update_site_option( $this->plugin_prefix, $_POST[$this->plugin_prefix] );
 
