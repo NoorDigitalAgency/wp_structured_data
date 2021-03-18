@@ -20,7 +20,7 @@ class StructuredData {
     
     add_action( 'admin_init', array( $this, 'register_settings' ) );
     
-    add_action( 'admin_menu', array( $this, 'add_options_page' ) );
+    add_action( 'admin_menu', array( $this, 'add_admin_page' ) );
 
     add_action( 'admin_head', array( $this, 'inline_assets' ) );
 
@@ -74,14 +74,15 @@ class StructuredData {
     register_setting( $this->plugin_prefix . '_group', $this->plugin_prefix );
   }
 
-  public function add_options_page() {
+  public function add_admin_page() {
 
-    add_options_page( 
+    add_menu_page( 
       $this->plugin_name, 
       $this->plugin_name, 
-      'manage_options', 
+      'read', 
       $this->plugin_prefix, 
-      array( $this, $this->plugin_prefix . '_options_page' )
+      array( $this, $this->plugin_prefix . '_options_page' ),
+      'dashicons-index-card'
     );
   }
 
