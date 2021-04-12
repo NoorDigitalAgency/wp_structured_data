@@ -24,6 +24,8 @@ class StructuredData {
 
     \add_action( 'admin_head', array( $this, 'inline_assets' ) );
 
+    \add_filter( "option_page_capability_{$this->plugin_prefix}", array( $this, 'capability' ), 10, 1 );
+
     // To integrate with WP-Seo we need further investigation...
     // if ( class_exists( 'Yoast\WP\SEO\Generators\Schema\FAQ' ) ) {
 
@@ -64,6 +66,11 @@ class StructuredData {
     )));
 
     \wp_enqueue_style( 'wp-codemirror' );
+  }
+
+  public function capability ( $capability ) {
+
+    return 'read';
   }
 
   public function inline_assets() {
