@@ -3,7 +3,7 @@ Contributors:
 Tags:              structured, data
 Requires at least: 3.0.0
 Tested up to:      5.6.0
-Stable tag:        1.4.0
+Stable tag:        1.4.1
 Requires PHP:      5.3.0
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -67,5 +67,8 @@ Make use of wp_print_scripts instead of prev wp_head hook.
 * Fix: Verifyinng php support 5.3 >
 * Fix: Fixing multisite
 * Fix: Moved Menu page to admin sidebar 
+
+= 1.4.1 =
+* Fix: User cap for saving option
 
 == Arbitrary section ==
