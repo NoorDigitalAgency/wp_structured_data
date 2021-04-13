@@ -24,7 +24,7 @@ class StructuredData {
 
     \add_action( 'admin_head', array( $this, 'inline_assets' ) );
 
-    \add_filter( "option_page_capability_{$this->plugin_prefix}", array( $this, 'capability' ), 10, 1 );
+    \add_filter( "option_page_capability_{$this->plugin_prefix}_group", array( $this, 'capability' ), 10, 1 );
 
     // To integrate with WP-Seo we need further investigation...
     // if ( class_exists( 'Yoast\WP\SEO\Generators\Schema\FAQ' ) ) {
@@ -42,7 +42,7 @@ class StructuredData {
       \switch_to_blog( \get_current_blog_id() );
 
       $option = \get_option( $this->plugin_prefix );
-
+      
       \restore_current_blog();
     } else {
 
